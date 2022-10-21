@@ -1,0 +1,31 @@
+pipeline{
+    agent any
+    environment {
+        PATH = "$PATH:/usr/share/maven"
+    }
+    stages{
+       stage('GetCode'){
+            steps{
+                git 'https://github.com/hashan9898/demo.git'
+                
+            }
+         }        
+       stage('Build'){
+            steps{
+                //sh 'sudo docker run -dit -p 3306:3306 -e MYSQL_ROOT_PASSWORD=local -e MYSQL_DATABASE=employeeDB 262701d58edd'
+                sh 'mvn clean package'
+            }
+         }
+        stage('SonarQube analysis') {
+//    def scannerHome = tool 'SonarScanner 4.0';
+        steps{
+        withSonarQubeEnv(installationName:'sonarqube-9.6.1', credentialsId: 'jenkins-tokenss') {
+        // If you have configured more than one global server connection, you can specify its name
+//      sh "${scannerHome}/bin/sonar-scanner"
+        sh "mvn sonar:sonar"
+    }
+        }
+        }
+       
+    }
+}
