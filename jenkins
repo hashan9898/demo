@@ -12,7 +12,7 @@ pipeline{
          }        
        stage('Build'){
             steps{
-                //sh 'sudo docker run -dit -p 3306:3306 -e MYSQL_ROOT_PASSWORD=local -e MYSQL_DATABASE=employeeDB 262701d58edd'
+               // sh 'sudo docker run -dit -p 3306:3306 -e MYSQL_ROOT_PASSWORD=local -e MYSQL_DATABASE=employeeDB 262701d58edd'
                 sh 'mvn clean package'
             }
          }
@@ -26,6 +26,22 @@ pipeline{
     }
         }
         }
-       
+        stage('Build docker image'){
+            steps{
+                sh 'sudo docker build -t docker-demo:1.0 .'
+            }
+         }
+         stage('Build push image'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerpwd')]) {
+                        sh 'sudo docker login -u hashan9898 -p ${dockerpwd}'
+    // some block
+                    }
+                    sh'sudo docker tag docker-demo:1.0 hashan9898/docker-demo:1.0'
+                    sh 'sudo docker push hashan9898/docker-demo:latest'
+                }
+            }
+         }
     }
 }
