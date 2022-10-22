@@ -39,7 +39,7 @@ pipeline{
     // some block
                     }
                     sh'sudo docker tag docker-demo:1.0 hashan9898/docker-demo:1.0'
-                    sh 'sudo docker push hashan9898/docker-demo:latest'
+                    sh 'sudo docker push hashan9898/docker-demo:1.0'
                 }
             }
          }
