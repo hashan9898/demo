@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    environment {
+        AWS_ACCOUNT_ID="102414258269"
+        AWS_DEFAULT_REGION="ap-south-1" 
+        IMAGE_REPO_NAME="docker-demo"
+        IMAGE_TAG="latest"
+        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+        REGISTRY_CREDENTIAL='ecr-creditinal'
+    }
+   
+    stages {
+        
+        
+        stage('Cloning Git') {
+            steps {
+                 git 'https://github.com/hashan9898/demo.git'     
+            }
+        }
+         stage('Build'){
+            steps{
+                //sh 'sudo docker network create springboot-mysql-net'
+                //sh 'sudo docker run --name mysqldb --network springboot-mysql-net -dit -p 3306:3306 -e MYSQL_ROOT_PASSWORD=local -e MYSQL_DATABASE=employeeDB mysql:5.7'
+                sh 'mvn install -DskipTests'
+            }
+         }
+ 
+  
+    // Building Docker images
+    stage('Building image') {
+      steps{
+        script {
+            dockerImage = docker.build("$REPOSITORY_URI:$BUILD_NUMBER","-f Dockerfile .")
+        }
+      }
+    }
+    // Uploading Docker images into AWS ECR
+    stage('Pushing to ECR') {
+     steps{  
+         script {
+                 docker.withRegistry("http://" + REPOSITORY_URI , "ecr:ap-south-1:" + REGISTRY_CREDENTIAL) {
+                        dockerImage.push()
+                    }
+         }
+        }
+      }
+    }
+}
