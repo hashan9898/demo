@@ -57,7 +57,7 @@ pipeline {
          stage('Run application'){
             steps{
                 //sh 'sudo docker network create springboot-mysql-net'
-                sh 'sudo docker run --name mysqldb --network springboot-mysql-net -dit -p 3306:3306 -e MYSQL_ROOT_PASSWORD=local -e MYSQL_DATABASE=employeeDB mysql:5.7'
+                //sh 'sudo docker run --name mysqldb --network springboot-mysql-net -dit -p 3306:3306 -e MYSQL_ROOT_PASSWORD=local -e MYSQL_DATABASE=employeeDB mysql:5.7'
                 sh 'sudo docker run --network springboot-mysql-net --name springboot-container -p 8081:8080 102414258269.dkr.ecr.ap-south-1.amazonaws.com/docker-demo:28'
             }
          }
