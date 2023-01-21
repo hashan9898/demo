@@ -5,9 +5,9 @@ RUN mkdir /swivel/hashan
 COPY /target/docker-demo-0.0.1-SNAPSHOT.jar /swivel/hashan/docker-demo.jar
 
 RUN mkdir /swivel
-COPY /target/docker-demo-0.0.1-SNAPSHOT.jar /swivel/docker-demo.jar wqdwdfdsffdsfgfdgbdf
+COPY /target/docker-demo-0.0.1-SNAPSHOT.jar /swivel/docker-demo.jar wqdwdfdsffdsfgfdgbdf hlhljjlkjlj
 RUN mkdir /swivel/hashn
-COPY /target/docker-demo-0.0.1-SNAPSHOT.jar /swivel/hashan/docker-demo. qwqwd zxzfdfsfhfgjgjfjf
+COPY /target/docker-demo-0.0.1-SNAPSHOT.jar /swivel/hashan/docker-demo. qwqwd zxzfdfsfhfgjgjfjfn hggkjjv
 
 EXPOSE 8080
 
