@@ -2,7 +2,7 @@ FROM openjdk:11-jdk-oraclelinux7
 
 
 RUN mkdir /swivel
-COPY /target/docker-demo-0.0.1-SNAPSHOT.jar /swivel/docker-demo.ja
+COPY /target/docker-demo-0.0.1-SNAPSHOT.jar /swivel/docker-demo.jaR
 
 EXPOSE 8080
 
