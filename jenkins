@@ -12,7 +12,7 @@ pipeline{
          }        
        stage('Build'){
             steps{
-                //sh 'sudo docker network create springboot-mysql-net'
+                //sh 'sudo docker network create springboot-mysql-net'wqdwqd
                 sh 'sudo docker run --name mysqldb --network springboot-mysql-net -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=local -e MYSQL_DATABASE=employeeDB mysql:5.7'
                 sh 'mvn install -DskipTests'
             }
